@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import './App.css'
+import Footer from './components/Footer'
+import Header from './components/Header'
 import MovieList from './components/movie/MovieList'
 import MovieModal from './components/movie/MovieModal'
 
@@ -91,6 +93,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <Header />
       <MovieList
         onMovieSelect={setSelectedMovieId}
         movies={sortedMovies}
@@ -105,6 +108,7 @@ const App = () => {
         detailsError={detailsError}
         onClose={handleCloseModal}
       />
+      <Footer />
     </div>
   )
 }

@@ -3,6 +3,20 @@
   padding: 24px;
 }
 
+.app-header {
+  margin-bottom: 18px;
+}
+
+.app-header__title {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.app-header__tagline {
+  margin: 6px 0 0;
+  color: #9aa4b2;
+}
+
 .movie-list {
   display: flex;
   flex-wrap: wrap;
@@ -39,7 +53,18 @@
 }
 
 .sort-control {
-  margin-bottom: 16px; /* or 20px/24px if you want more space */
+  margin-bottom: 16px;
+}
+
+.app-footer {
+  margin-top: 28px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: #9aa4b2;
+}
+
+.app-footer a {
+  color: #8ab4f8;
 }
 
 
