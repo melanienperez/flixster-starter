@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import MovieCard from './movie/MovieCard'
-import SearchBar from './SearchBar'
+import MovieCard from './MovieCard'
+import SearchBar from '../search/SearchBar'
+import SortControl from '../sort/SortControl'
 
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3'
 const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500'
@@ -12,11 +13,14 @@ const normalizeMovies = (results) =>
     posterUrl: movie.poster_path ? `${TMDB_IMAGE_BASE_URL}${movie.poster_path}` : '',
     releaseDate: movie.release_date || 'Unknown release date',
     voteAverage: typeof movie.vote_average === 'number' ? movie.vote_average : 0,
+    release_date: movie.release_date || '',
+    vote_average: typeof movie.vote_average === 'number' ? movie.vote_average : 0,
+    popularity: typeof movie.popularity === 'number' ? movie.popularity : 0,
     overview: movie.overview || '',
   }))
 
-const MovieList = ({ onMovieSelect }) => {
-  const [movies, setMovies] = useState([])
+const MovieList = ({ onMovieSelect, movies, onMoviesChange, sortOption, onSortChange }) => {
+  const [fetchedMovies, setFetchedMovies] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
@@ -53,7 +57,7 @@ const MovieList = ({ onMovieSelect }) => {
 
       setTotalPages(data.total_pages || 1)
       setCurrentPage(page)
-      setMovies((previousMovies) =>
+      setFetchedMovies((previousMovies) =>
         append ? [...previousMovies, ...normalizedMovies] : normalizedMovies
       )
     } catch (fetchError) {
@@ -73,6 +77,10 @@ const MovieList = ({ onMovieSelect }) => {
       fetchMovies({ mode: 'nowPlaying', page: 1, append: false })
     }
   }, [activeMode, fetchMovies, searchQuery])
+
+  useEffect(() => {
+    onMoviesChange(fetchedMovies)
+  }, [fetchedMovies, onMoviesChange])
 
   const handleSearchSubmit = () => {
     const trimmedQuery = searchQuery.trim()
@@ -104,6 +112,7 @@ const MovieList = ({ onMovieSelect }) => {
   }
 
   const hasMorePages = currentPage < totalPages
+  const displayedMovies = movies || fetchedMovies
 
   return (
     <section aria-label="Movies">
@@ -114,18 +123,19 @@ const MovieList = ({ onMovieSelect }) => {
         onNowPlaying={handleNowPlaying}
         isLoading={isLoading}
       />
+      <SortControl sortOption={sortOption} onSortChange={onSortChange} />
 
-      {isLoading && movies.length === 0 ? <p>Loading movies...</p> : null}
+      {isLoading && displayedMovies.length === 0 ? <p>Loading movies...</p> : null}
       {error ? <p>{error}</p> : null}
-      {!isLoading && !error && movies.length === 0 ? <p>No movies found.</p> : null}
+      {!isLoading && !error && displayedMovies.length === 0 ? <p>No movies found.</p> : null}
 
       <div className="movie-list">
-        {movies.map((movie) => (
+        {displayedMovies.map((movie) => (
           <MovieCard key={movie.id} movie={movie} onSelect={onMovieSelect} />
         ))}
       </div>
 
-      {movies.length > 0 ? (
+      {displayedMovies.length > 0 ? (
         <button
           className="load-more-button"
           type="button"
@@ -141,6 +151,15 @@ const MovieList = ({ onMovieSelect }) => {
 
 MovieList.propTypes = {
   onMovieSelect: PropTypes.func.isRequired,
+  movies: PropTypes.arrayOf(PropTypes.object),
+  onMoviesChange: PropTypes.func,
+  sortOption: PropTypes.string.isRequired,
+  onSortChange: PropTypes.func.isRequired,
+}
+
+MovieList.defaultProps = {
+  movies: null,
+  onMoviesChange: () => {},
 }
 
 export default MovieList

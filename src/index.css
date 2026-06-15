@@ -1,10 +1,12 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-color: #0d1117;
+  color: #e6edf3;
 }
 
-button {
+.search-bar__button,
+.load-more-button {
   background-color: #282c34;
   color: white;
   cursor: pointer;
@@ -13,7 +15,8 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+.search-bar__button:hover,
+.load-more-button:hover {
   background-color: #777;
   color: white;
 }

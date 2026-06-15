@@ -219,19 +219,42 @@ On first load, `App` fetches TMDb now-playing movies and stores raw results afte
 - Tablet (`600px - 1023px`): 2 movie cards per row.
 - Mobile (`<= 599px`): 1 movie card per row (full-width card slot).
 
-## 5) AI Feature Spec (Pre-Milestone 8 Draft)
+## 5) AI Feature Spec (Milestone 8 Final)
 
-- Display location: `MovieModal` (below core movie details in a dedicated "AI Insight" section).
-- Input context sent to AI:
+### Prompt spec
+- **Role:** An enthusiastic but honest film critic helping a user decide if a movie fits their evening.
+- **Task:** Generate a 2-3 sentence watch recommendation for the currently selected movie.
+- **Inputs sent to model:**
   - `title`
-  - `genres` (names array)
+  - `genres` as a comma-separated string
   - `overview`
-  - Optional extras if available: `runtime`, `vote_average`.
-- Expected AI output:
-  - A concise 2-3 sentence watch recommendation explaining likely audience fit and viewing mood.
-  - Tone: helpful, non-spoiler, plain language.
-- AI state location:
-  - `aiInsight` and `isLoadingAi` in `App`, passed to `MovieModal`.
-  - Reset insight when selected movie changes or modal closes.
-- Failure behavior:
-  - If AI call fails, modal still renders normal movie details and shows a non-blocking "AI insight unavailable" message.
+- **Output format:**
+  - Plain text only
+  - 2-3 sentences
+  - No spoilers
+  - No first-person statements
+- **Constraints:**
+  - Avoid plot spoilers
+  - Avoid generic filler phrases (e.g., "must-see")
+  - Avoid unnecessary comparisons to other films
+  - Keep recommendation concrete and specific to provided movie context
+- **Failure behavior:**
+  - If AI generation fails, show: "We couldn't generate a recommendation for this one - check out the overview above!"
+
+### OpenRouter API configuration
+- **Endpoint:** `https://openrouter.ai/api/v1/chat/completions`
+- **Model:** `meta-llama/llama-3.3-70b-instruct:free`
+- **API key env var:** `VITE_OPENROUTER_API_KEY` (stored in local `.env` / `config.env`, excluded from git)
+
+### State and trigger design
+- **State location:** `MovieModal`
+  - `aiInsight: string | null` (initial `null`)
+  - `loadingInsight: boolean` (initial `false`)
+- **Trigger:** when modal is open and movie details are present (after details fetch completes).
+- **Reset behavior:** when modal closes, reset `aiInsight` to `null` and `loadingInsight` to `false`.
+
+### AI Feature - Decisions Log
+- **What the API returned initially:** Early responses were often too generic and occasionally exceeded 3 sentences.
+- **What I changed in my prompt:** Tightened system constraints for 2-3 sentences, no spoilers, no first-person language, and no generic filler.
+- **What fallback behavior I implemented:** Show a friendly fallback recommendation message if OpenRouter fails or key is missing.
+- **What I learned:** Small prompt constraints and explicit output format requirements significantly improve consistency for UI-bound AI text.

@@ -13,8 +13,8 @@
 }
 
 .movie-list > .movie-card {
-  flex: 1 1 calc(25% - 16px);
-  min-width: 220px;
+  flex: 1 1 calc(16.666% - 16px);
+  min-width: 150px;
 }
 
 .load-more-button {
@@ -37,6 +37,12 @@
   color: white;
   padding: 20px;
 }
+
+.sort-control {
+  margin-bottom: 16px; /* or 20px/24px if you want more space */
+}
+
+
 
 @media (max-width: 600px) {
   .App {
