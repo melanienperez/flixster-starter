@@ -137,7 +137,7 @@ Auth: API key passed as query param (`api_key`) for this project phase.
 
 ## 3) State Architecture
 
-All core state is owned by `App` and passed down via props.
+For Milestone 2, list/search/pagination state is owned by `MovieList` and passed to child controls/cards.
 
 - `movies: MovieSummary[]`
   - Initial value: `[]`
@@ -146,13 +146,23 @@ All core state is owned by `App` and passed down via props.
 
 - `searchQuery: string`
   - Initial value: `""`
-  - Owner: `App` (or controlled through `SearchBar`)
-  - Updates when: user types in search input, clears input.
+  - Owner: `MovieList` (controlled by `SearchBar`)
+  - Updates when: user types in search input, clears search, or toggles back to now playing.
 
 - `currentPage: number`
   - Initial value: `1`
-  - Owner: `App`
-  - Updates when: user paginates or when new search starts (reset to 1).
+  - Owner: `MovieList`
+  - Updates when: user clicks Load More (increment), starts a new search (reset to 1), or returns to now playing (reset to 1).
+
+- `totalPages: number`
+  - Initial value: `1`
+  - Owner: `MovieList`
+  - Updates when: TMDb list/search response returns `total_pages`; used to hide/disable Load More when `currentPage >= totalPages`.
+
+- `activeMode: "nowPlaying" | "search"`
+  - Initial value: `"nowPlaying"`
+  - Owner: `MovieList`
+  - Updates when: search submit switches to `"search"`; clearing query or clicking Now Playing switches to `"nowPlaying"`.
 
 - `selectedMovieId: number | null`
   - Initial value: `null`
@@ -202,6 +212,12 @@ All core state is owned by `App` and passed down via props.
 ## 4) Data Flow
 
 On first load, `App` fetches TMDb now-playing movies and stores raw results after a light normalization step into `movies` (for example, mapping `poster_path` to a full poster URL and providing fallbacks for missing values). `App` passes `movies` to `MovieList`, which maps each item into `MovieCard` props for rendering. `SearchBar` updates `searchQuery`; on submit, `App` calls the search endpoint and replaces `movies` with search results. `SortControl` updates `sortOption`, and `App` derives the displayed order (either by sorting in state or via a memoized derived list). When a user clicks a `MovieCard`, it calls `onSelect(movie.id)` back to `App`, which sets `selectedMovieId`; that id triggers a movie-details fetch (`/movie/{id}`), stores `selectedMovieDetails`, and opens `MovieModal` with runtime/genres/overview from the details response.
+
+## 4.1) Responsive Breakpoint Targets (Milestone 3)
+
+- Desktop (`>= 1024px`): 4 movie cards per row with consistent gaps.
+- Tablet (`600px - 1023px`): 2 movie cards per row.
+- Mobile (`<= 599px`): 1 movie card per row (full-width card slot).
 
 ## 5) AI Feature Spec (Pre-Milestone 8 Draft)
 

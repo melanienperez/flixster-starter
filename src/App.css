@@ -1,5 +1,31 @@
 .App {
   text-align: center;
+  padding: 24px;
+}
+
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.movie-list > .movie-card {
+  flex: 1 1 calc(25% - 16px);
+  min-width: 220px;
+}
+
+.load-more-button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+}
+
+.load-more-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
 .App-header {
@@ -13,16 +39,18 @@
 }
 
 @media (max-width: 600px) {
-  .movie-card {
-    width: 100%;
+  .App {
+    padding: 16px;
   }
 
-  .search-bar {
-    flex-direction: column;
-    gap: 10px;
+  .movie-list > .movie-card {
+    flex: 1 1 100%;
+    min-width: 0;
   }
+}
 
-  .search-bar form {
-    flex-direction: column;
+@media (min-width: 600px) and (max-width: 1023px) {
+  .movie-list > .movie-card {
+    flex: 1 1 calc(50% - 16px);
   }
 }
