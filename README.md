@@ -118,11 +118,11 @@ Deployed Application (optional): n/a
 
 * Did the topics discussed in your labs prepare you to complete the assignment? Be specific, which features in your weekly assignment did you feel unprepared to complete?
 
-Add your response here
+This project definielty felt very similar to the last project, so I would say I did feel prepared. Especially because last week I did some of the stretch features that were required for this project.
 
 * If you had more time, what would you have done differently? Would you have added additional features? Changed the way your project responded to a particular event, etc.
   
-Add your response here
+If I had more time, I would've loved to add the saved favoirtes bar. This would be intresting because I would like to see how it works behind the seen to keep track of that information.
 
 * Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
@@ -131,6 +131,7 @@ Add your response here
 ### Open-source libraries used
 
 Font Awesome: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css
+
 Google Font: https://fonts.google.com/specimen/Exo+2
 
 ### Shout out
