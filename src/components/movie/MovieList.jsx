@@ -19,7 +19,15 @@ const normalizeMovies = (results) =>
     overview: movie.overview || '',
   }))
 
-const MovieList = ({ onMovieSelect, movies, onMoviesChange, sortOption, onSortChange }) => {
+const MovieList = ({
+  onMovieSelect,
+  movies,
+  onMoviesChange,
+  sortOption,
+  onSortChange,
+  favoriteMovieIds,
+  onToggleFavorite,
+}) => {
   const [fetchedMovies, setFetchedMovies] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
@@ -131,7 +139,13 @@ const MovieList = ({ onMovieSelect, movies, onMoviesChange, sortOption, onSortCh
 
       <div className="movie-list">
         {displayedMovies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} onSelect={onMovieSelect} />
+          <MovieCard
+            key={movie.id}
+            movie={movie}
+            onSelect={onMovieSelect}
+            isFavorite={favoriteMovieIds.includes(movie.id)}
+            onToggleFavorite={onToggleFavorite}
+          />
         ))}
       </div>
 
@@ -155,6 +169,8 @@ MovieList.propTypes = {
   onMoviesChange: PropTypes.func,
   sortOption: PropTypes.string.isRequired,
   onSortChange: PropTypes.func.isRequired,
+  favoriteMovieIds: PropTypes.arrayOf(PropTypes.number).isRequired,
+  onToggleFavorite: PropTypes.func.isRequired,
 }
 
 MovieList.defaultProps = {

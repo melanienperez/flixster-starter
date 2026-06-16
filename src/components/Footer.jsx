@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className="app-footer">
       <p>
-        &copy; {year} Flixster. Movie data from{' '}
+        &copy; {year} QueuedUp. Movie data from{' '}
         <a href="https://www.themoviedb.org/" target="_blank" rel="noreferrer">
           TMDb
         </a>

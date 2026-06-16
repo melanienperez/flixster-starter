@@ -13,6 +13,7 @@ const App = () => {
   const [isLoadingDetails, setIsLoadingDetails] = useState(false)
   const [detailsError, setDetailsError] = useState(null)
   const [movies, setMovies] = useState([])
+  const [favoriteMovieIds, setFavoriteMovieIds] = useState([])
   const [sortOption, setSortOption] = useState('popularity.desc') 
 
   const sortedMovies = useMemo(() => {
@@ -91,6 +92,14 @@ const App = () => {
     setSelectedMovieId(null)
   }
 
+  const handleToggleFavorite = (movieId) => {
+    setFavoriteMovieIds((previousIds) =>
+      previousIds.includes(movieId)
+        ? previousIds.filter((id) => id !== movieId)
+        : [...previousIds, movieId]
+    )
+  }
+
   return (
     <div className="App">
       <Header />
@@ -100,6 +109,8 @@ const App = () => {
         onMoviesChange={setMovies}
         sortOption={sortOption}
         onSortChange={setSortOption}
+        favoriteMovieIds={favoriteMovieIds}
+        onToggleFavorite={handleToggleFavorite}
       />
       <MovieModal
         isOpen={selectedMovieId !== null}

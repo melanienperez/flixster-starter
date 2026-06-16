@@ -1,22 +1,57 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #0d1117;
-  color: #e6edf3;
+:root {
+  /* Redbox kiosk palette */
+  --rb-red: #e4002b;
+  --rb-red-dark: #b3001f;
+  --rb-red-deep: #80001a;
+  --rb-white: #ffffff;
+  --rb-cream: #fff6f2;
+  --rb-charcoal: #1c1c1e;
+  --rb-ink: #2a2a2d;
+  --rb-gray: #6b6b70;
+  --rb-frame: #f3f3f3;
+  --rb-shadow: rgba(128, 0, 26, 0.18);
+  --rb-radius: 10px;
 }
 
+body {
+  margin: 0;
+  font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
+  /* The "floor" the kiosk sits on */
+  background-color: var(--rb-red);
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.04) 0,
+    rgba(255, 255, 255, 0.04) 2px,
+    transparent 2px,
+    transparent 14px
+  );
+  color: var(--rb-ink);
+}
+
+/* Kiosk buttons — red dispense-style controls */
 .search-bar__button,
 .load-more-button {
-  background-color: #282c34;
-  color: white;
+  background-color: var(--rb-red);
+  color: var(--rb-white);
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border: 2px solid var(--rb-white);
+  border-radius: var(--rb-radius);
+  box-shadow: 0 3px 0 var(--rb-red-deep);
+  transition: transform 0.1s ease, background-color 0.2s ease, box-shadow 0.1s ease;
 }
 
 .search-bar__button:hover,
 .load-more-button:hover {
-  background-color: #777;
-  color: white;
+  background-color: var(--rb-red-dark);
+  color: var(--rb-white);
+}
+
+.search-bar__button:active,
+.load-more-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--rb-red-deep);
 }

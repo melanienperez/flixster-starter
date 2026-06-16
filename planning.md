@@ -243,7 +243,7 @@ On first load, `App` fetches TMDb now-playing movies and stores raw results afte
 
 ### OpenRouter API configuration
 - **Endpoint:** `https://openrouter.ai/api/v1/chat/completions`
-- **Model:** `meta-llama/llama-3.3-70b-instruct:free`
+- **Model:** `google/gemma-4-26b-a4b-it:free`
 - **API key env var:** `VITE_OPENROUTER_API_KEY` (stored in local `.env` / `config.env`, excluded from git)
 
 ### State and trigger design
