@@ -126,7 +126,7 @@ If I had more time, I would've loved to add the saved favoirtes bar. This would 
 
 * Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
-Add your response here
+Despite practicing beforehand, I feel as though I was more nervous. I definitely need to maybe practice in front of more people.
 
 ### Open-source libraries used
 
