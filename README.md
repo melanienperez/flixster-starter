@@ -2,7 +2,7 @@
 
 Submitted by: **Melanie Perez**
 
-Estimated time spent: **13** hours spent in total
+Estimated time spent: **15** hours spent in total
 
 Deployed Application (optional): (https://queuedup-oxa0.onrender.com)
 
@@ -75,9 +75,9 @@ Deployed Application (optional): (https://queuedup-oxa0.onrender.com)
 
 #### STRETCH FEATURES
 
-- [ ] **Deployment**
-  - [ ] Website is deployed via Render.
-  - [ ] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: For ease of grading, please use the deployed version of your website when creating your walkthrough. 
+- [x] **Deployment**
+  - [x] Website is deployed via Render.
+  - [x] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: For ease of grading, please use the deployed version of your website when creating your walkthrough. 
 - [x] **Embedded Movie Trailers**
   - [x] Within the pop-up modal displaying a movie's details, the movie trailer is viewable.
     - [x] When the trailer is clicked, users can play the movie trailer.
@@ -112,7 +112,7 @@ Deployed Application (optional): (https://queuedup-oxa0.onrender.com)
 ### Walkthrough Video
 
 
-**Walkthrough video:** [Flixster Walkthrough] https://www.loom.com/share/e8d7e5477e5645528f82cb19f05d7441
+**Walkthrough video:** [Flixster Walkthrough] https://www.loom.com/share/d0361806f2df4e96bbf4f9ee2df533c6
 
 ### Reflection
 
